@@ -1,9 +1,10 @@
 const Customer = require('./Customer');
-const Employee = require('./Employee');
-const Person = require('./Person');
+const Executive = require('./Executive');
+// const Employee = require('./Employee');
+// const Person = require('./Person');
 
 const main = () => {
-    const test = new Customer(
+    const test = new Executive(
         '1',
         'Tod', 
         'R', 
@@ -19,7 +20,9 @@ const main = () => {
         'Engineering',
         'Programmer',
         1000000,
-        '2');
+        '2',
+        [],
+        4000);
 
     console.log(test);
 }
