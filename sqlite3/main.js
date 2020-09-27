@@ -9,8 +9,8 @@ const db = new sqlite3.Database('./db/orm1', (err) => {
 
 const main = () => {
     const employee = {
-        $id: '4',
-        $first: 'Nikko',
+        $id: '100',
+        $first: 'Roman',
         $middle: 'V',
         $last: 'Witting',
         $dob: '07031997',

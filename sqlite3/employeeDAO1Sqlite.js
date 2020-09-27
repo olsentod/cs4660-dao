@@ -4,5 +4,4 @@ const create = (db, obj) => {
     console.log('Created');
 }
 
-
 exports.create = create;
