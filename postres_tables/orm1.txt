@@ -1,0 +1,29 @@
+CREATE TABLE persons(
+    id varchar(10) PRIMARY KEY,
+    first varchar(20), 
+    middle varchar(20), 
+    last varchar(20), 
+    dob varchar(10),
+    phone varchar(10),
+    email varchar(50), 
+    street varchar(50),
+    city varchar(20), 
+    state varchar(20), 
+    zip varchar(10)
+    );
+
+CREATE TABLE employees(
+    id varchar(10) PRIMARY KEY,
+    personsId varchar(10),
+    companyId varchar(10),
+    department varchar(20),
+    title varchar(20),
+    salary REAL, 
+    managerId varchar(10), 
+    FOREIGN KEY(personsId) REFERENCES persons(id),  
+    FOREIGN KEY(managerId) REFERENCES managers(id)
+    );
+
+CREATE TABLE managers(id varchar(10) PRIMARY KEY, employeesId varchar(20), FOREIGN KEY(employeesId) REFERENCES employees(id));
+CREATE TABLE executives(id varchar(10) PRIMARY KEY, managersId varchar(20), bonus REAL, FOREIGN KEY(managersId) REFERENCES managers(id));
+CREATE TABLE nonemployees(id varchar(10) PRIMARY KEY, personsId varchar(10), company varchar(10), type varchar(20), FOREIGN KEY(personsId) REFERENCES persons(id));
