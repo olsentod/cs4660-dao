@@ -17,6 +17,8 @@ const create = async (db, employee) => {
         );
 
         employeeStatement.finalize();
+
+        resolve(employee.id);
     });
 }
 
@@ -37,7 +39,7 @@ const read = (db, employeeId) => {
 
 const update = (db, employee) => {
     return new Promise(async (resolve, reject) => {
-        const personsId = await personDAO.update(db, employee);
+        await personDAO.update(db, employee);
 
         const employeeStatement = db.prepare("UPDATE employees SET companyId = ?, department = ?, title = ?, salary = ?, managerId = ? WHERE id = ?");
         employeeStatement.run(
@@ -50,7 +52,7 @@ const update = (db, employee) => {
         );
         employeeStatement.finalize();
 
-        resolve(personsId);
+        resolve(employee.id);
     });
 }
 
