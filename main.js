@@ -166,7 +166,7 @@ const main = () => {
     // console.log(customers)
     // console.log(vendors)
     for(let executive of executives) {
-        EmployeeDAO.create(db, executive)
+        ExecutiveDAO.create(db, executive)
     }
 
     for(let manager of managers) {
