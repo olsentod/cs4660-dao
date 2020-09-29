@@ -12,7 +12,7 @@ const create = async (db, customer) => {
             customer.companyId,
             customer.type
         );
-
+        console.log('customer created')
         customerStatement.finalize();
     });
 }

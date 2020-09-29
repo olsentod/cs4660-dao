@@ -12,7 +12,7 @@ const create = async (db, vendor) => {
             vendor.companyId,
             vendor.type
         );
-
+        console.log('vendor created');
         vendorStatement.finalize();
     });
 }

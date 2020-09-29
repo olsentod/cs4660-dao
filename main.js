@@ -3,7 +3,17 @@ const Executive = require('./Executive');
 const Manager = require('./Manager');
 const Employee = require('./Employee');
 const Contractor = require('./Contractor');
-const Vendor = require('./Vendor')
+const Vendor = require('./Vendor');
+const VendorDAO = require('./sqlite3/vendorDAO1Sqlite');
+const CustomerDAO = require('./sqlite3/customerDAO1Sqlite');
+const ContractorDAO = require('./sqlite3/contractorDAO1Sqlite');
+const sqlite3 = require('sqlite3').verbose();
+
+const db = new sqlite3.Database('./sqlite3/db/orm1', (err) => {
+    if (err) {
+        console.error(err.message);
+    }
+})
 
 const faker = require('faker');
 
@@ -106,7 +116,8 @@ const main = () => {
             faker.address.city(), 
             faker.address.state(),
             faker.address.zipCode(), 
-            String(faker.random.uuid())
+            String(faker.random.uuid(),
+            )
             );
         vendors.push(vendor);
         id++;
@@ -145,12 +156,23 @@ const main = () => {
         contractors.push(contractor);
         id++;
     }
-    console.log(executives)
-    console.log(managers)
-    console.log(employees)
-    console.log(contractors)
-    console.log(customers)
-    console.log(vendors)
+    // console.log(executives)
+    // console.log(managers)
+    // console.log(employees)
+    // console.log(contractors)
+    // console.log(customers)
+    // console.log(vendors)
+    // for(let vendor of vendors) {
+    //     VendorDAO.create(db, vendor)
+    // }
+
+    // for(let customer of customers) {
+    //     CustomerDAO.create(db, customer)
+    // }
+
+    for(let contractor of contractors) {
+        ContractorDAO.create(db, contractor)
+    }
 }
 
 main();
