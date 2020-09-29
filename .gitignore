@@ -1,2 +1,6 @@
 sqlite3/node_modules
 sqlite3/db
+sqlite3/yarn.lock
+./node_modules
+./.vscode
+./yarn.lock
