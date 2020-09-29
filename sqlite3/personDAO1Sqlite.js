@@ -25,7 +25,7 @@ const create = (db, person) => {
 
 const read = (db, personsId) => {
     return new Promise((resolve, reject) => {
-        const personStatement = 'SELECT * from persons WHERE id = ?';
+        const personStatement = 'SELECT * FROM persons WHERE id = ?';
         db.get(personStatement, [personsId], (err, row) => {
             if (err) {
                 console.error('ERROR: ', err);
