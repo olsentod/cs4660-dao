@@ -1,26 +1,32 @@
 
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://roman:roman123@company.atpcv.mongodb.net/<dbname>?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useUnifiedTopology: true });
-const { employees } = require('../main')
+const MongoClient = require('mongodb').MongoClient
+const uri = "mongodb+srv://roman:roman123@company.atpcv.mongodb.net/<dbname>?retryWrites=true&w=majority"
+const client = new MongoClient(uri, { useUnifiedTopology: true })
+const { employees, managers, executives } = require('../arrays')
 
 async function run() {
-    console.log(employees)
     try {
-      await client.connect();
-  
-      const database = client.db('sample_mflix');
-      const collection = database.collection('movies');
-  
-      // Query for a movie that has the title 'Back to the Future'
-      const query = { title: 'Back to the Future' };
-      const movie = await collection.findOne(query);
-  
-      console.log(movie);
+      await client.connect()
+        const database = client.db('company')
+
+        await client.db('company').command({ ping: 1 })
+        console.log('Connected successfully to server')
+
+        const employeesCollection = database.collection('employees')
+        const executivesCollection = database.collection('executives')
+        const managersCollection = database.collection('managers')
+
+        let result = await employeesCollection.insertMany(employees)
+        console.dir(result.insertedCount)
+
+        result = await executivesCollection.insertMany(executives)
+        console.dir(result.insertedCount)
+
+        result = await managersCollection.insertMany(managers)
+        console.dir(result.insertedCount);
     } finally {
-      // Ensures that the client will close when you finish/error
-      await client.close();
+      await client.close()
     }
   }
 
-run().catch(console.dir);
+run().catch(console.dir)
