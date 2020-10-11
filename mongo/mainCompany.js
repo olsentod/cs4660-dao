@@ -6,7 +6,7 @@ const { employees, managers, executives } = require('../arrays')
 
 async function run() {
     try {
-      await client.connect()
+        await client.connect()
         const database = client.db('company')
 
         await client.db('company').command({ ping: 1 })
