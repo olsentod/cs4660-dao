@@ -1,5 +1,5 @@
 const MongoClient = require('mongodb').MongoClient
-const uri = "mongodb+srv://roman:roman123@company.atpcv.mongodb.net/<dbname>?retryWrites=true&w=majority"
+const uri = 'mongodb+srv://roman:roman123@company.atpcv.mongodb.net/<dbname>?retryWrites=true&w=majority'
 const client = new MongoClient(uri, { useUnifiedTopology: true })
 let employeesCollection
 let executivesCollection
@@ -9,6 +9,7 @@ async function run() {
     try {
         await client.connect()
         const database = client.db('company')
+        let args = process.argv.slice(-1)
 
         await client.db('company').command({ ping: 1 })
         console.log('Connected successfully to server')
@@ -17,8 +18,8 @@ async function run() {
         executivesCollection = database.collection('executives')
         managersCollection = database.collection('managers')
 
-        if(process.argv.length > 2) {
-            await recursiveFindCompanyEmployee(process.argv[2])
+        if(args.length > 0) {
+            await recursiveFindCompanyEmployee(args[0])
         }
         else {
             throw new Error('Please pass arguments for an id')
