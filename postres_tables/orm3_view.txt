@@ -1,9 +1,9 @@
-CREATE TEMP VIEW vendor_view AS SELECT * FROM master WHERE type = 'vendor';
-CREATE TEMP VIEW customer_view AS SELECT * FROM master WHERE type = 'customer';
-CREATE TEMP VIEW contractor_view AS SELECT * FROM master WHERE type = 'contractor';
-CREATE TEMP VIEW employee_view AS SELECT * FROM master WHERE type = 'employee';
-CREATE TEMP VIEW manager_view AS SELECT * FROM master WHERE type = 'manager';
-CREATE TEMP VIEW executive_view AS SELECT * FROM master WHERE type = 'executive';
+CREATE VIEW vendor_view AS SELECT * FROM master WHERE type = 'vendor';
+CREATE VIEW customer_view AS SELECT * FROM master WHERE type = 'customer';
+CREATE VIEW contractor_view AS SELECT * FROM master WHERE type = 'contractor';
+CREATE VIEW employee_view AS SELECT * FROM master WHERE type = 'employee';
+CREATE VIEW manager_view AS SELECT * FROM master WHERE type = 'manager';
+CREATE VIEW executive_view AS SELECT * FROM master WHERE type = 'executive';
 
 // Test
 SELECT * FROM vendorview;
