@@ -1,6 +1,10 @@
 const { Client } = require('pg');
 const personDAO = require('./personDAO');
-const vendorDAO = require('./vendorDAO');
+const vendorDao = require('./vendorDAO');
+const customerDao = require('./customerDAO');
+const contractorDao = require('./contractorDAO');
+const employeeDao = require('./employeeDAO');
+const managerDao = require('./managerDAO');
 
 
 const main = async () => {
@@ -15,9 +19,9 @@ const main = async () => {
   await client.connect();
 
   const executive = {
-    id: '111',
-    first: 'Tod',
-    middle: 'TEST',
+    id: '5',
+    first: 'TOD',
+    middle: 'R',
     last: 'yeehaw',
     dob: '07031997',
     phone: '435123',
@@ -26,20 +30,21 @@ const main = async () => {
     city: 'East Darren',
     state: 'Kansas',
     zip: '69864',
-    personsId: 'a9da5f82-6bea-4279-b220-c9cc9494cbb6',
+    personsId: 'c3e03cbc-9cb3-45dd-a820-1fda6c6311cf',
     companyId: 'XD',
-    type: 'vendor'
-    // department: 'Coordinator',
-    // title: 'Future Research Designer',
-    // salary: 479770,
-    // managerId: '4',
-    // bonus: 123123
+    type: 'contractor',
+    department: 'Coordinator',
+    title: 'Future Research',
+    salary: 479770,
+    managerId: 5,
+    bonus: 123123
   }
   // console.log(await personDAO.update(client, executive));
   // console.log(await personDAO.read(client, executive.id));
   // console.log(await personDAO.list(client));
-  await vendorDAO.create(client, executive);
-  console.log(await vendorDAO.list(client, executive));
+  // await managerDao.create(client, executive);
+  console.log(await managerDao.list(client));
+  // console.log(await employeeDao.list(client, executive));
   await client.end();
 }
 
