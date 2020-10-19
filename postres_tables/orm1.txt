@@ -1,5 +1,5 @@
 CREATE TABLE persons(
-    id varchar(10) PRIMARY KEY,
+    id varchar(50) PRIMARY KEY,
     first varchar(20), 
     middle varchar(20), 
     last varchar(20), 
@@ -13,8 +13,8 @@ CREATE TABLE persons(
     );
 
 CREATE TABLE employees(
-    id varchar(10) PRIMARY KEY,
-    personsId varchar(10),
+    id varchar(50) PRIMARY KEY,
+    personsId varchar(50),
     companyId varchar(10),
     department varchar(20),
     title varchar(20),
@@ -24,6 +24,6 @@ CREATE TABLE employees(
     FOREIGN KEY(managerId) REFERENCES managers(id)
     );
 
-CREATE TABLE managers(id varchar(10) PRIMARY KEY, employeesId varchar(20), FOREIGN KEY(employeesId) REFERENCES employees(id));
-CREATE TABLE executives(id varchar(10) PRIMARY KEY, managersId varchar(20), bonus REAL, FOREIGN KEY(managersId) REFERENCES managers(id));
-CREATE TABLE nonemployees(id varchar(10) PRIMARY KEY, personsId varchar(10), company varchar(10), type varchar(20), FOREIGN KEY(personsId) REFERENCES persons(id));
+CREATE TABLE managers(id varchar(50) PRIMARY KEY, employeesId varchar(50), FOREIGN KEY(employeesId) REFERENCES employees(id));
+CREATE TABLE executives(id varchar(50) PRIMARY KEY, managersId varchar(50), bonus REAL, FOREIGN KEY(managersId) REFERENCES managers(id));
+CREATE TABLE nonemployees(id varchar(50) PRIMARY KEY, personsId varchar(50), company varchar(10), type varchar(20), FOREIGN KEY(personsId) REFERENCES persons(id));

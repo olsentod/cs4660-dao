@@ -21,3 +21,6 @@ docker-compose build sqlite3
 
 // Start the container
 docker-compose up -d
+
+// Example of sql query to select employees
+select * from employees inner join persons on persons.id = employees.personsid;
