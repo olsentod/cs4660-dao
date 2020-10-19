@@ -51,10 +51,9 @@ const update = (db, manager) => {
                 manager.id
             ]
         };
-
         try {
-            const result = await db.query(query);
-            resolve(result);
+            await db.query(query);
+            resolve(manager.id);
         } catch (error) {
             console.error(error);
             reject();

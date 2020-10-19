@@ -5,6 +5,7 @@ const customerDao = require('./customerDAO');
 const contractorDao = require('./contractorDAO');
 const employeeDao = require('./employeeDAO');
 const managerDao = require('./managerDAO');
+const executiveDao = require('./executiveDAO');
 
 
 const main = async () => {
@@ -19,8 +20,8 @@ const main = async () => {
   await client.connect();
 
   const executive = {
-    id: '5',
-    first: 'TOD',
+    id: '10',
+    first: 'TESTTO',
     middle: 'R',
     last: 'yeehaw',
     dob: '07031997',
@@ -42,8 +43,8 @@ const main = async () => {
   // console.log(await personDAO.update(client, executive));
   // console.log(await personDAO.read(client, executive.id));
   // console.log(await personDAO.list(client));
-  // await managerDao.create(client, executive);
-  console.log(await managerDao.list(client));
+  // await executiveDao.create(client, executive);
+  console.log(await executiveDao.list(client));
   // console.log(await employeeDao.list(client, executive));
   await client.end();
 }

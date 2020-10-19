@@ -2,79 +2,104 @@ const managerDAO = require('./managerDAO');
 
 const create = async (db, executive) => {
     return new Promise(async (resolve, reject) => {
-        const managersId = await managerDAO.create(db, executive);
+        const managerId = await managerDAO.create(db, executive);
 
-        const executiveStatement = db.prepare("INSERT INTO executives VALUES (?, ?, ?)");
-        executiveStatement.run(
-            executive.id,
-            managersId,
-            executive.bonus
-        );
-
-        executiveStatement.finalize();
-        resolve(executive.id);
+        const query = {
+            text: 'INSERT INTO executives VALUES ($1, $2, $3)',
+            values: [
+                executive.id,
+                managerId,
+                executive.bonus
+            ]
+        };
+        try {
+            await db.query(query);
+            resolve(executive.id);
+        } catch (error) {
+            console.error(error);
+            reject();
+        }
     });
 }
 
 const read = (db, executiveId) => {
-    return new Promise((resolve, reject) => {
-        const executiveStatement = 'SELECT * FROM executives WHERE id = ?';   // Prepare the select statement
-        db.get(executiveStatement, [executiveId], async (err, row) => {
-            if (err) {
-                console.error('ERROR: ', err);
-                reject(err);
-            } else {
-                let manager = await managerDAO.read(db, row.managersId);       // Get the person infromation
-                resolve({...manager, ...row});                               // Join employee info and person info and return
-            }
-        });
+    return new Promise(async (resolve, reject) => {
+        const query = {
+            text: 'SELECT * FROM executives WHERE id = $1',
+            values: [executiveId]
+        }
+
+        try {
+            const executive = await db.query(query);
+            const manager = await managerDAO.read(db, executive.rows[0].managersid);
+            resolve({ ...manager, ...executive.rows[0] });
+        } catch (error) {
+            console.error(error);
+            reject();
+        }
     })
 }
 
 const update = (db, executive) => {
     return new Promise(async (resolve, reject) => {
-        const managersId = await managerDAO.update(db, executive);
-        const executiveStatement = db.prepare("UPDATE executives SET managersId = ? WHERE id = ?");
-        executiveStatement.run(
-            managersId,
-            executive.id
-        );
-        executiveStatement.finalize();
+        const managerId = await managerDAO.update(db, executive);
 
-        resolve();
+        const query = {
+            text: 'UPDATE executives SET managersId = $1 WHERE id = $2',
+            values: [
+                managerId,
+                executive.id
+            ]
+        };
+
+        try {
+            const result = await db.query(query);
+            resolve(result);
+        } catch (error) {
+            console.error(error);
+            reject();
+        }
     });
 }
 
 const del = (db, executive) => {
     return new Promise(async (resolve, reject) => {
-        await managerDAO.del(db, executive);
 
-        const executiveStatement = db.prepare("DELETE FROM executives WHERE id = ?");
-        executiveStatement.run(
-            executive.id
-        );
-        executiveStatement.finalize();
-        resolve();
+        const query = {
+            text: 'DELETE FROM executives WHERE id = $1',
+            values: [executive.id]
+        }
+
+        try {
+            await db.query(query);
+            await managerDAO.del(db, executive);
+            resolve();
+        } catch (error) {
+            console.error(error);
+            reject();
+        }
     });
 }
 
 const list = (db) => {
-    return new Promise((resolve, reject) => {
-        const executiveStatement = 'SELECT * from executives';
-        db.all(executiveStatement, [], async (err, rows) => {
-            if (err) {
-                console.error('ERROR: ', err);
-                reject(err);
-            } else {
-                const executiveList = [];
-                for(const row of rows){
-                    console.log(row);
-                    const manager = await managerDAO.read(db, row.managersId);
-                    executiveList.push({...manager, ...row});
-                }
-                resolve(executiveList);
+    return new Promise(async (resolve, reject) => {
+        const query = {
+            text: 'SELECT * from executives',
+            values: []
+        }
+
+        try {
+            const executives = []
+            const executive = await db.query(query);
+            for (const e of executive.rows) {
+                const manager = await managerDAO.read(db, e.managersid);
+                executives.push({ ...manager, ...e });
             }
-        });
+            resolve(executives);
+        } catch (error) {
+            console.error(error);
+            reject();
+        }
     })
 }
 exports.create = create;
