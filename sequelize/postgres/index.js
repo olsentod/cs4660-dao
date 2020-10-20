@@ -1,6 +1,5 @@
-const { Person, Employee, Executive, Nonemployee } = require('./models');
+const { Person, Employee, Executive, Manager, Nonemployee } = require('./models');
 const { sequelize } = require('./db');
-const Manager = require('./models/manager');
 
 const executiveData = {
     first: 'TESTTO',
