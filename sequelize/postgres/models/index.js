@@ -1,10 +1,17 @@
 const Person = require('./person');
 const Employee = require('./employee');
+const Manager = require('./manager');
+const Executive = require('./executive');
+const Nonemployee = require('./nonemployee');
 
-Person.hasOne(Employee, {
-    onUpdate: 'CASCADE'
-})
+Nonemployee.belongsTo(Person);
 
 Employee.belongsTo(Person);
 
-module.exports = {Person, Employee};
+Manager.belongsTo(Employee);
+
+Executive.belongsTo(Manager);
+
+
+
+module.exports = { Person, Employee, Manager, Executive, Nonemployee };
