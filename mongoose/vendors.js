@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const uri = 'mongodb+srv://roman:roman123@company.atpcv.mongodb.net/mongooseCompany?retryWrites=true&w=majority'
+const uri = 'mongooseuri'
 const VendorSchema = require('./Schemas/Vendor')
 
 const { vendors } = require('../arrays')

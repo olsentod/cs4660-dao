@@ -1,6 +1,6 @@
 
 const mongoose = require('mongoose')
-const uri = 'mongodb+srv://roman:roman123@company.atpcv.mongodb.net/mongooseCompany?retryWrites=true&w=majority'
+const uri = 'mongooseuri'
 const EmployeeSchema = require('./Schemas/Employee')
 const ExecutiveSchema = require('./Schemas/Executive')
 const ManagerSchema = require('./Schemas/Manager')
